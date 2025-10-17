@@ -63,3 +63,6 @@ disabled = false
 success_symbol = '[ ](fg:#BB9AF7)'
 error_symbol = '[ ](fg:#BB9AF7)'
 vimcmd_symbol = '[ ](fg:#BB9AF7)'
+vimcmd_replace_one_symbol = '[ ](fg:#BB9AF7)'
+vimcmd_replace_symbol = '[ ](fg:#BB9AF7)'
+vimcmd_visual_symbol = '[ ](fg:#BB9AF7)'
