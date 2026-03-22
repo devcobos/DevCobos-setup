@@ -12,6 +12,8 @@ This project provides a fully customized Windows Terminal setup featuring Tokyo 
 - [Installation Color Schemes](#installation-color-schemes)
 - [Install Starship - PowerShell (Tokyo Night)](#install-starship---powershell-tokyo-night)
 - [Install Starship - Ubuntu WSL (SynthWave)](#install-starship---ubuntu-wsl-synthwave)
+  - [Automated install with DevCobos-setup (recommended)](#automated-install-with-devcobos-setup-recommended)
+  - [Manual install](#manual-install)
 
 ## Initial Setup
 
@@ -99,13 +101,38 @@ winget install --id Starship.Starship
 
 [Official Documentation](https://starship.rs/guide/)
 
-### Using curl to install Starship
+### Automated install with DevCobos-setup (recommended)
+
+The [DevCobos-setup](https://github.com/devcobos/DevCobos-setup) project provides an interactive installer that configures **Zsh + Starship** with the SynthWave theme, plugins (autosuggestions, syntax highlighting), and useful aliases — all in one step.
+
+1. Clone and run the installer:
+```bash
+git clone https://github.com/devcobos/DevCobos-setup.git ~/DevCobos-setup
+sudo -v && ~/DevCobos-setup/install.sh
+```
+2. In the main menu, choose **Select tools** to pick only what you need.
+3. Use the arrow keys to navigate the list and press `Space` to select **Zsh + Starship**.
+4. Press `Enter` to confirm and start the installation.
+
+The script will automatically:
+- Install **Zsh** and set it as your default shell.
+- Install **Starship** and deploy the SynthWave prompt configuration.
+- Set up **zsh-autosuggestions** and **zsh-syntax-highlighting** plugins.
+- Configure **eza** aliases for a modern `ls` experience.
+
+> After installation, close and reopen your terminal for the changes to take effect.
+
+### Manual install
+
+If you prefer to set everything up manually, follow the steps below.
+
+#### Using curl to install Starship
 
 ```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-### Configure your shell
+#### Configure your shell
 
 1. Open the Ubuntu/WSL terminal.
 2. Edit `~/.bashrc` with your preferred editor (example with `nano`):
@@ -124,7 +151,7 @@ eval "$(starship init bash)"
 source ~/.bashrc
 ```
 
-### Configure the SynthWave theme
+#### Configure the SynthWave theme
 
 1. Create the Starship configuration folder if it doesn't exist and open the config file:
 ```bash
