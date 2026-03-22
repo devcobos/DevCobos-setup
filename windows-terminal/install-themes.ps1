@@ -6,14 +6,14 @@ if (!(Test-Path $tokyoNightPath)) {
   New-Item -Type Directory -Path $tokyoNightPath
 }
 
-Copy-Item -Path tokyo-night-custom.json -Destination $tokyoNightPath
+Copy-Item -Path "$PSScriptRoot\themes\tokyo-night-custom.json" -Destination $tokyoNightPath
 
 # Install SynthWave Custom
 if (!(Test-Path $synthWavePath)) {
   New-Item -Type Directory -Path $synthWavePath
 }
 
-Copy-Item -Path synthwave-custom.json -Destination $synthWavePath
+Copy-Item -Path "$PSScriptRoot\themes\synthwave-custom.json" -Destination $synthWavePath
 
 
 Write-Output ' '

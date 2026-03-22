@@ -1,0 +1,66 @@
+format = """
+[╭─](fg:#ff7edb)\
+[\\[](fg:#b893ce)\
+$username\
+$hostname\
+[\\]](fg:#b893ce)\
+$directory
+[╰─](fg:#ff7edb)\
+[󰊠](fg:#72f1b8)\
+[󰊠](fg:#fede5d)\
+[󰊠](fg:#03edf9)\
+$character"""
+
+right_format = """
+$nodejs\
+$git_branch\
+$time"""
+
+[username]
+style_user = "fg:#fede5d"
+format = "[$user]($style)"
+show_always = true
+
+[hostname]
+style = "fg:#fede5d"
+format = "[@$hostname]($style)"
+ssh_only = false
+
+[directory]
+style = "fg:#03edf9"
+format = "[  $path]($style)"
+truncation_length = 2
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "fg:#ff7edb"
+format = '[\[$symbol $branch\]]($style) '
+only_attached = true
+truncation_length = 20
+
+[nodejs]
+symbol = " "
+style = "fg:#72f1b8"
+format = '[\[$symbol($version)\]]($style) '
+
+[time]
+disabled = false
+time_format = "%a - %R"
+style = "fg:#03edf9"
+format = '[\[$time\]]($style)'
+
+[character]
+disabled = false
+success_symbol = '[ ](fg:#ff7edb)'
+error_symbol = '[ ](fg:#ff7edb)'
+vimcmd_symbol = '[ ](fg:#ff7edb)'
+vimcmd_replace_one_symbol = '[ ](fg:#ff7edb)'
+vimcmd_replace_symbol = '[ ](fg:#ff7edb)'
+vimcmd_visual_symbol = '[ ](fg:#ff7edb)'

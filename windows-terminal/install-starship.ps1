@@ -1,6 +1,6 @@
 $env:POSH_CACHE_ENABLED = $true
 $themesPath = "$env:USERPROFILE\.config"
-$themeFile = "tokyo-night-custom.toml"
+$themeFile = "$PSScriptRoot\starship\tokyo-night-custom.toml"
 
 # Create .config directory if it doesn't exist
 if (-not (Test-Path -Path $themesPath)) {

@@ -1,0 +1,108 @@
+# English
+readonly LANG_NAME="English"
+
+readonly MSG_INSTALLING_GUM="Installing gum..."
+readonly MSG_GUM_INSTALLED="gum installed."
+
+readonly MSG_INSTALLER_SUBTITLE="Dev environment setup"
+
+readonly MSG_MENU_HEADER="What do you want to do?"
+readonly MSG_MENU_SELECT="Select tools"
+readonly MSG_MENU_INSTALL_ALL="Install all"
+readonly MSG_MENU_EXIT="Exit"
+
+readonly MSG_SELECT_HEADER="Select tools to install  (space to toggle, enter to confirm):"
+readonly MSG_NOTHING_SELECTED="Nothing selected."
+
+readonly MSG_CONFIRM_INSTALL_ALL="Install all tools?"
+
+readonly MSG_INSTALLING="Installing"
+readonly MSG_DONE="done"
+readonly MSG_FAILED="failed"
+readonly MSG_SCRIPT_NOT_FOUND="Script not found:"
+
+readonly MSG_SUMMARY="Installation complete"
+readonly MSG_BYE="Bye!"
+
+# docker
+readonly MSG_DOCKER_CONFIG_HEADER="Docker configuration"
+readonly MSG_DOCKER_EXPOSE_TCP="Expose Docker to Windows via TCP (port 2375)?"
+readonly MSG_DOCKER_CONFIRM_YES="Yes"
+readonly MSG_DOCKER_CONFIRM_NO="No"
+readonly MSG_DOCKER_SYSTEMD_ENABLED="systemd already enabled in"
+readonly MSG_DOCKER_SYSTEMD_ENABLING="Enabling systemd in"
+readonly MSG_DOCKER_SYSTEMD_DONE="Done. WSL must be restarted for systemd to take effect."
+readonly MSG_DOCKER_SYSTEMD_NOT_RUNNING="systemd is not running in this WSL session."
+readonly MSG_DOCKER_SYSTEMD_RESTART_HINT="Run 'wsl --shutdown' from Windows, reopen Ubuntu, then run the installer again."
+readonly MSG_DOCKER_INSTALLING="Installing Docker..."
+readonly MSG_DOCKER_ALREADY_INSTALLED="Already installed:"
+readonly MSG_DOCKER_GROUP_EXISTS="already in docker group"
+readonly MSG_DOCKER_GROUP_ADDING="Adding to docker group..."
+readonly MSG_DOCKER_GROUP_DONE="Done. Re-login required to apply group membership."
+readonly MSG_DOCKER_SERVICE_ENABLING="Enabling Docker service..."
+readonly MSG_DOCKER_TCP_CONFIGURING="Configuring Docker daemon for TCP access..."
+readonly MSG_DOCKER_TCP_DONE="Docker exposed on tcp://0.0.0.0:2375"
+readonly MSG_DOCKER_VERIFYING="Verifying Docker..."
+readonly MSG_DOCKER_VERIFY_OK="Docker is working correctly."
+readonly MSG_DOCKER_VERIFY_FAIL="Verification failed. Try re-logging into WSL."
+
+# node inputs
+readonly MSG_NODE_VERSION_HEADER="Node.js version"
+readonly MSG_NODE_VERSION_SELECT="  Select Node.js version:"
+readonly MSG_NODE_PKG_HEADER="Package manager"
+readonly MSG_NODE_PKG_SELECT="  Select package manager:"
+
+# node + fnm
+readonly MSG_UNZIP_INSTALLING="Installing unzip..."
+readonly MSG_FNM_INSTALLING="Installing fnm..."
+readonly MSG_FNM_ALREADY_INSTALLED="Already installed:"
+readonly MSG_FNM_ZSHRC="Added fnm init to ~/.zshrc"
+readonly MSG_FNM_ZSHRC_EXISTS="fnm init already present in ~/.zshrc"
+readonly MSG_NODE_SKIP="Skipping Node.js installation"
+readonly MSG_NODE_INSTALLING="Installing Node.js"
+readonly MSG_PNPM_INSTALLING="Installing pnpm..."
+readonly MSG_YARN_INSTALLING="Installing yarn..."
+
+# zsh + starship
+readonly MSG_ZSH_INSTALLING="Installing zsh..."
+readonly MSG_ZSH_ALREADY_INSTALLED="Already installed:"
+readonly MSG_ZSH_DEFAULT_SHELL="Setting zsh as default shell..."
+readonly MSG_ZSH_DEFAULT_SHELL_DONE="Done. Restart your terminal to apply."
+readonly MSG_ZSH_ALREADY_DEFAULT="zsh is already the default shell."
+readonly MSG_STARSHIP_INSTALLING="Installing starship..."
+readonly MSG_STARSHIP_ALREADY_INSTALLED="Already installed:"
+readonly MSG_STARSHIP_BACKUP="Backed up existing starship.toml"
+readonly MSG_STARSHIP_CONFIG_DEPLOYED="starship.toml deployed to ~/.config/starship.toml"
+readonly MSG_ZSH_HISTORY_ADDED="History configured in ~/.zshrc"
+readonly MSG_ZSH_HISTORY_EXISTS="History already configured in ~/.zshrc"
+readonly MSG_ZSH_AUTOSUGGESTIONS_INSTALLING="Installing zsh-autosuggestions..."
+readonly MSG_ZSH_AUTOSUGGESTIONS_INSTALLED="zsh-autosuggestions already installed"
+readonly MSG_ZSH_SYNTAX_INSTALLING="Installing zsh-syntax-highlighting..."
+readonly MSG_ZSH_SYNTAX_INSTALLED="zsh-syntax-highlighting already installed"
+readonly MSG_ZSH_PLUGINS_ADDED="Plugins added to ~/.zshrc"
+readonly MSG_ZSH_PLUGINS_EXISTS="Plugins already present in ~/.zshrc"
+readonly MSG_EZA_INSTALLING="Installing eza..."
+readonly MSG_EZA_ALREADY_INSTALLED="Already installed:"
+readonly MSG_EZA_ALIASES_ADDED="eza aliases added to ~/.zshrc"
+readonly MSG_EZA_ALIASES_EXISTS="eza aliases already present in ~/.zshrc"
+readonly MSG_STARSHIP_ZSHRC="Added starship init to ~/.zshrc"
+readonly MSG_STARSHIP_ZSHRC_EXISTS="starship init already present in ~/.zshrc"
+
+# git
+readonly MSG_GIT_CONFIG_HEADER="Git configuration"
+readonly MSG_GIT_NAME_PLACEHOLDER="Your full name"
+readonly MSG_GIT_NAME_PROMPT="  Name  › "
+readonly MSG_GIT_EMAIL_PLACEHOLDER="you@email.com"
+readonly MSG_GIT_EMAIL_PROMPT="  Email › "
+readonly MSG_GIT_ALREADY_INSTALLED="Already installed:"
+readonly MSG_GIT_INSTALLING="Installing git..."
+readonly MSG_GIT_CONFIG_SUMMARY="Configuration:"
+readonly MSG_GIT_CONFIG_NAME="  Name  :"
+readonly MSG_GIT_CONFIG_EMAIL="  Email :"
+readonly MSG_GIT_CONFIG_EDITOR="  Editor:"
+
+# tool descriptions
+readonly MSG_TOOL_GIT_DESC="Version control"
+readonly MSG_TOOL_ZSH_DESC="Shell and prompt"
+readonly MSG_TOOL_NODE_DESC="JavaScript runtime + version manager"
+readonly MSG_TOOL_DOCKER_DESC="Container runtime"
