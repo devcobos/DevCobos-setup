@@ -53,8 +53,6 @@ Add a new language by creating `lang/<code>.sh` with the same variables as `lang
 
 ```
 DevCobos-setup/
-├── .github/
-│   └── assets/             # Screenshots and preview images
 ├── install.sh              # Entry point and main menu
 ├── config/
 │   └── starship.toml       # Starship prompt config (SynthWave, deployed by scripts/zsh.sh)
