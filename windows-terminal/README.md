@@ -1,6 +1,8 @@
-# Windows Terminal Custom Themes
+# Windows Terminal Setup
 
-Fully customized Windows Terminal setup featuring **Tokyo Night** theme for PowerShell and **SynthWave** theme for Ubuntu WSL.
+> Part of [DevCobos-setup](../README.md) — complete this guide **before** running the WSL installer.
+
+Custom Windows Terminal configuration featuring **Tokyo Night** for PowerShell and **SynthWave** for Ubuntu WSL, including color schemes, Nerd Font setup, and Starship prompt configuration.
 
 ![Preview](../.github/assets/terminal-preview.png)
 
@@ -12,6 +14,7 @@ Fully customized Windows Terminal setup featuring **Tokyo Night** theme for Powe
 - [Installation Color Schemes](#installation-color-schemes)
 - [Install Starship - PowerShell (Tokyo Night)](#install-starship---powershell-tokyo-night)
 - [Install Starship - Ubuntu WSL (SynthWave)](#install-starship---ubuntu-wsl-synthwave)
+- [Back to DevCobos-setup](../README.md)
 
 ## Initial Setup
 
@@ -37,9 +40,9 @@ This will install both **DevCobos - Tokyo Night** and **DevCobos - SynthWave** c
 1. Open a PowerShell terminal.
 2. Navigate to the `windows-terminal` folder inside this repository.
 3. Run the `install-themes.ps1` script:
-```powershell
-.\install-themes.ps1
-```
+   ```powershell
+   .\install-themes.ps1
+   ```
 4. Once installed, restart your terminal.
 5. Open the settings and go to **Color Schemes**. You will see both themes available.
    ![Settings color](../.github/assets/settings_color_theme.png)
@@ -90,9 +93,9 @@ winget install --id Starship.Starship
 1. Open a PowerShell terminal.
 2. Navigate to the `windows-terminal` folder inside this repository.
 3. Run the `install-starship.ps1` script:
-```powershell
-.\install-starship.ps1
-```
+   ```powershell
+   .\install-starship.ps1
+   ```
    - The script will check your existing PowerShell profile ($PROFILE).
    - If Starship is already configured, it will ask if you want to overwrite.
    - If not configured, it will append the Starship initialization to your existing profile.
@@ -110,9 +113,9 @@ winget install --id Starship.Starship
 The WSL installer in the root of this repository configures **Zsh + Starship** with the SynthWave theme, plugins (autosuggestions, syntax highlighting), and useful aliases — all in one step.
 
 1. Run the installer from the root of this repository:
-```bash
-sudo -v && ~/DevCobos-setup/install.sh
-```
+   ```bash
+   sudo -v && ~/DevCobos-setup/install.sh
+   ```
 2. In the main menu, choose **Select tools** to pick only what you need.
 3. Use the arrow keys to navigate the list and press `Space` to select **Zsh + Starship**.
 4. Press `Enter` to confirm and start the installation.
@@ -139,28 +142,30 @@ curl -sS https://starship.rs/install.sh | sh
 
 1. Open the Ubuntu/WSL terminal.
 2. Edit `~/.bashrc` with your preferred editor (example with `nano`):
-```bash
-nano ~/.bashrc
-```
+   ```bash
+   nano ~/.bashrc
+   ```
 3. Go to the end of the file and add this line:
-```bash
-eval "$(starship init bash)"
-```
+   ```bash
+   eval "$(starship init bash)"
+   ```
 4. Save and exit `nano`:
    - Press `Ctrl + O` > Enter (to save)
    - Press `Ctrl + X` (to exit)
 5. Reload the Bash configuration without closing the terminal:
-```bash
-source ~/.bashrc
-```
+   ```bash
+   source ~/.bashrc
+   ```
 
 #### Configure the SynthWave theme
 
 1. Create the Starship configuration folder if it doesn't exist and open the config file:
-```bash
-mkdir -p ~/.config && nano ~/.config/starship.toml
-```
-2. Copy the entire content from `starship/synthwave-custom.toml` into this file.
+   ```bash
+   mkdir -p ~/.config && nano ~/.config/starship.toml
+   ```
+2. Copy the entire content from [`starship/synthwave-custom.toml`](starship/synthwave-custom.toml) into this file.
+
+   > **Note:** This config uses `$fill` for a single-line layout. The automated WSL installer (`scripts/zsh.sh`) deploys [`config/starship.toml`](../config/starship.toml), which uses `right_format` for the same visual result. Both are SynthWave-themed.
 3. Save and exit `nano`:
    - Press `Ctrl + O` > Enter (to save)
    - Press `Ctrl + X` (to exit)

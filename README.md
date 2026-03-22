@@ -9,7 +9,7 @@ Interactive development environment installer for WSL + Ubuntu.
 - WSL2 with Ubuntu 22.04+
 - `curl`
 - `sudo` access
-- **Windows Terminal** configured with custom color schemes and a Nerd Font. Follow the [Windows Terminal setup guide](windows-terminal/README.md) before running this installer.
+- **Windows Terminal** (Windows-side prerequisite): custom color schemes and a Nerd Font must be installed before using this WSL installer. See the [Windows Terminal setup guide](windows-terminal/README.md).
 
 > `gum` is installed automatically on first run.
 
@@ -47,14 +47,17 @@ Add a new language by creating `lang/<code>.sh` with the same variables as `lang
 | Zsh + Starship | Shell with custom prompt                    |
 | Node.js (fnm)  | JavaScript runtime + version manager        |
 | Docker         | Container runtime with systemd + WSL config |
+| [Windows Terminal](windows-terminal/README.md) | Color schemes, Nerd Font, and Starship for PowerShell |
 
 ## Structure
 
 ```
 DevCobos-setup/
+├── .github/
+│   └── assets/             # Screenshots and preview images
 ├── install.sh              # Entry point and main menu
 ├── config/
-│   └── starship.toml       # Starship prompt config (SynthWave)
+│   └── starship.toml       # Starship prompt config (SynthWave, deployed by scripts/zsh.sh)
 ├── lang/
 │   ├── en.sh               # English
 │   └── es.sh               # Spanish
