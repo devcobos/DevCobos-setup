@@ -85,6 +85,6 @@ fi
 
 echo ""
 echo "› $MSG_DOCKER_VERIFYING"
-docker run --rm hello-world 2>&1 | grep "Hello from Docker" \
+sudo docker run --rm hello-world 2>&1 | grep "Hello from Docker" \
   && echo "  $MSG_DOCKER_VERIFY_OK" \
   || echo "  $MSG_DOCKER_VERIFY_FAIL"

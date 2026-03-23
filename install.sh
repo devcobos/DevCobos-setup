@@ -282,53 +282,55 @@ main_menu() {
   local opt_all="$MSG_MENU_INSTALL_ALL"
   local opt_exit="$MSG_MENU_EXIT"
 
-  local choice
-  choice=$(gum choose \
-    --header "$MSG_MENU_HEADER"$'\n' \
-    --header.foreground "$C_CYAN" \
-    --cursor "→ " \
-    --cursor.foreground "$C_LILAC" \
-    --selected.foreground "$C_PINK" \
-    --item.foreground "$C_DIM" \
-    --height 6 \
-    "$opt_select" \
-    "$opt_all" \
-    "$opt_exit")
+  while true; do
+    local choice
+    choice=$(gum choose \
+      --header "$MSG_MENU_HEADER"$'\n' \
+      --header.foreground "$C_CYAN" \
+      --cursor "→ " \
+      --cursor.foreground "$C_LILAC" \
+      --selected.foreground "$C_PINK" \
+      --item.foreground "$C_DIM" \
+      --height 6 \
+      "$opt_select" \
+      "$opt_all" \
+      "$opt_exit")
 
-  case "$choice" in
-    "$opt_select")
-      local selected
-      mapfile -t selected < <(select_tools)
+    case "$choice" in
+      "$opt_select")
+        local selected
+        mapfile -t selected < <(select_tools)
 
-      if [[ ${#selected[@]} -eq 0 ]]; then
-        gum style --foreground "$C_YELLOW" "  $MSG_NOTHING_SELECTED"
-        sleep 1
-        show_logo
-        main_menu
-        return
-      fi
+        if [[ ${#selected[@]} -eq 0 ]]; then
+          gum style --foreground "$C_YELLOW" "  $MSG_NOTHING_SELECTED"
+          sleep 1
+          show_logo
+          continue
+        fi
 
-      install_selected "${selected[@]}"
-      ;;
-    "$opt_all")
-      if gum confirm \
-        --affirmative "$MSG_DOCKER_CONFIRM_YES" \
-        --negative "$MSG_DOCKER_CONFIRM_NO" \
-        --default=yes \
-        "  $MSG_CONFIRM_INSTALL_ALL"; then
-        install_all
-      else
-        show_logo
-        main_menu
-        return
-      fi
-      ;;
-    "$opt_exit"|"")
-      echo ""
-      gum style --foreground "$C_PINK" "  $MSG_BYE"
-      exit 0
-      ;;
-  esac
+        install_selected "${selected[@]}"
+        break
+        ;;
+      "$opt_all")
+        if gum confirm \
+          --affirmative "$MSG_DOCKER_CONFIRM_YES" \
+          --negative "$MSG_DOCKER_CONFIRM_NO" \
+          --default=yes \
+          "  $MSG_CONFIRM_INSTALL_ALL"; then
+          install_all
+          break
+        else
+          show_logo
+          continue
+        fi
+        ;;
+      "$opt_exit"|"")
+        echo ""
+        gum style --foreground "$C_PINK" "  $MSG_BYE"
+        exit 0
+        ;;
+    esac
+  done
 }
 
 show_summary() {
