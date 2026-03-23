@@ -190,6 +190,3 @@ The Docker installer enables WSL systemd automatically. If it was already disabl
 
 **Zsh is not the default shell after installation**
 Run `chsh -s $(which zsh)` manually and restart your terminal.
-
-**Node.js version not found by fnm**
-Run `fnm list-remote` to see available versions. Make sure the version you entered during setup is a valid LTS version (e.g. `22`, `20`).
