@@ -2,8 +2,6 @@
 
 Interactive development environment installer for WSL2 + Ubuntu.
 
-![setup preview](/.github/assets/image.png)
-
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform: WSL2](https://img.shields.io/badge/platform-WSL2%20%2B%20Ubuntu%2022.04%2B-orange.svg)](https://learn.microsoft.com/en-us/windows/wsl/)
 [![Shell: Bash](https://img.shields.io/badge/shell-bash-89e051.svg)](https://www.gnu.org/software/bash/)
