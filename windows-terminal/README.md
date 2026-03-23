@@ -2,30 +2,35 @@
 
 > Part of [DevCobos-setup](../README.md) — complete this guide **before** running the WSL installer.
 
-Custom Windows Terminal configuration featuring **Tokyo Night** for PowerShell and **SynthWave** for Ubuntu WSL, including color schemes, Nerd Font setup, and Starship prompt configuration.
+Configures Windows Terminal with **Tokyo Night** for PowerShell and **SynthWave** for Ubuntu WSL, including color schemes, Nerd Font, and Starship prompt.
 
 ![Preview](../.github/assets/terminal-preview.png)
 
 ![Preview Ubuntu](../.github/assets/terminal-ubuntu-preview.png)
 
+---
+
 ## Table of Contents
 
-- [Initial Setup](#initial-setup)
-- [Installation Color Schemes](#installation-color-schemes)
-- [Install Starship - PowerShell (Tokyo Night)](#install-starship---powershell-tokyo-night)
-- [Install Starship - Ubuntu WSL (SynthWave)](#install-starship---ubuntu-wsl-synthwave)
+- [Step 1 — Install Windows Terminal and PowerShell](#step-1--install-windows-terminal-and-powershell)
+- [Step 2 — Install a Nerd Font](#step-2--install-a-nerd-font)
+- [Step 3 — Install color schemes](#step-3--install-color-schemes)
+- [Step 4 — Install Starship for PowerShell](#step-4--install-starship-for-powershell)
+- [Step 5 — Install Starship for Ubuntu WSL](#step-5--install-starship-for-ubuntu-wsl)
+- [Optional customization](#optional-customization)
 - [Back to DevCobos-setup](../README.md)
 
-## Initial Setup
+---
 
-1. **Install Windows Terminal**
-   Download and install **Windows Terminal** from the Microsoft Store:
-    [Windows Terminal - Microsoft Store](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=ES&ocid=pdpshare)
-2. **Install PowerShell**
-   Download and install the latest version of **PowerShell** from the Microsoft Store:
-    [PowerShell - Microsoft Store](https://apps.microsoft.com/detail/9MZ1SNWT0N5D?hl=en-us&gl=ES&ocid=pdpshare)
-3. **Set Windows Terminal as default**
+## Step 1 — Install Windows Terminal and PowerShell
 
+1. **Install Windows Terminal** from the Microsoft Store:
+   [Windows Terminal - Microsoft Store](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-us&gl=ES&ocid=pdpshare)
+
+2. **Install PowerShell** from the Microsoft Store:
+   [PowerShell - Microsoft Store](https://apps.microsoft.com/detail/9MZ1SNWT0N5D?hl=en-us&gl=ES&ocid=pdpshare)
+
+3. **Set Windows Terminal and PowerShell as defaults:**
    1. Open **Windows Terminal**.
    2. Go to **Settings**.
    3. Set **Windows Terminal** and **PowerShell** as the default options on startup.
@@ -33,140 +38,141 @@ Custom Windows Terminal configuration featuring **Tokyo Night** for PowerShell a
 
    ![Default options](../.github/assets/windows_terminal_default.png)
 
-## Installation Color Schemes
+---
 
-This will install both **DevCobos - Tokyo Night** and **DevCobos - SynthWave** color schemes.
+## Step 2 — Install a Nerd Font
+
+A Nerd Font is **required** for Starship icons and symbols to render correctly.
+
+1. Download **FiraCode Nerd Font** from: [Nerd Fonts - Font Downloads](https://www.nerdfonts.com/font-downloads)
+2. Install the font on Windows.
+3. Open Windows Terminal and go to `Settings > Profiles > Defaults > Appearance`.
+4. Select **FiraCode Nerd Font Mono** and set the font weight to **Medium**.
+5. Save the changes.
+
+   ![Set font default](../.github/assets/set_font_fira_code.png)
+
+> Any other Nerd Font works too — FiraCode is the recommended one for this setup.
+
+---
+
+## Step 3 — Install color schemes
+
+This installs **DevCobos - Tokyo Night** (for PowerShell) and **DevCobos - SynthWave** (for Ubuntu WSL).
 
 1. Open a PowerShell terminal.
 2. Navigate to the `windows-terminal` folder inside this repository.
-3. Run the `install-themes.ps1` script:
+3. Run the script:
    ```powershell
    .\install-themes.ps1
    ```
-4. Once installed, restart your terminal.
-5. Open the settings and go to **Color Schemes**. You will see both themes available.
-   ![Settings color](../.github/assets/settings_color_theme.png)
+4. Restart Windows Terminal.
 
-### Configure PowerShell Profile (Tokyo Night)
+**Apply the Tokyo Night scheme to PowerShell:**
+1. Go to `Settings > Profiles > PowerShell > Appearance`.
+2. Select **DevCobos - Tokyo Night** as the color scheme.
+3. Save.
 
-1. Go to `Settings > Profiles > PowerShell`.
-2. In the **Appearance** tab, select **DevCobos - Tokyo Night** as the color scheme.
-3. Save the changes.
    ![Settings default color](../.github/assets/default_color_theme.png)
 
-### Configure Ubuntu WSL Profile (SynthWave)
+**Apply the SynthWave scheme to Ubuntu WSL:**
+1. Go to `Settings > Profiles > Ubuntu` (or your WSL distribution) `> Appearance`.
+2. Select **DevCobos - SynthWave** as the color scheme.
+3. Save.
 
-1. Go to `Settings > Profiles > Ubuntu` (or your WSL distribution).
-2. In the **Appearance** tab, select **DevCobos - SynthWave** as the color scheme.
-3. Save the changes.
+   ![Settings color](../.github/assets/settings_color_theme.png)
 
-### Change Tab Row (Optional)
+---
 
-1. Open the settings and go to **Appearance**.
-2. Locate the option **Use Acrylic Material in the tab row**.
-3. Save the changes.
-   ![acrylic material](../.github/assets/acrylic_material_tab_row.png)
+## Step 4 — Install Starship for PowerShell
 
-### Install a compatible font (required to use Starship)
+[Starship official docs](https://starship.rs/guide/)
 
-You need a Nerd Font installed and enabled in your terminal to display icons and special symbols.
-
-1. Download a `FiraCode Nerd Font` font from: [Nerd Fonts - Font Downloads](https://www.nerdfonts.com/font-downloads)
-2. Install the font and open the terminal.
-3. Go to `Settings > Profiles > Defaults > Appearance`.
-4. Select the font **FiraCode Nerd Font Mono** and set the font weight to **Medium**.
-5. Save the changes.
-   ![Set font default](../.github/assets/set_font_fira_code.png)
-
-## Install Starship - PowerShell (Tokyo Night)
-
-[Official Documentation](https://starship.rs/guide/)
-
-### Using winget to install
+**Install Starship via winget:**
 
 ```powershell
 winget install --id Starship.Starship
 ```
 
-### Configure PowerShell to use Starship with Tokyo Night theme
+**Configure PowerShell to use Starship with the Tokyo Night theme:**
 
 1. Open a PowerShell terminal.
 2. Navigate to the `windows-terminal` folder inside this repository.
-3. Run the `install-starship.ps1` script:
+3. Run the script:
    ```powershell
    .\install-starship.ps1
    ```
-   - The script will check your existing PowerShell profile ($PROFILE).
-   - If Starship is already configured, it will ask if you want to overwrite.
-   - If not configured, it will append the Starship initialization to your existing profile.
-   - A backup of your profile will be created automatically before any changes.
+   The script will:
+   - Check your existing PowerShell profile (`$PROFILE`)
+   - Back it up with a timestamp before making changes
+   - Append Starship initialization (or ask to overwrite if already configured)
+   - Install the **Terminal-Icons** module for file icons in PowerShell
 
-4. Once installed, restart your terminal.
+4. Restart Windows Terminal.
+
    ![Finished](../.github/assets/prompt_starship.png)
 
-## Install Starship - Ubuntu WSL (SynthWave)
+---
 
-[Official Documentation](https://starship.rs/guide/)
+## Step 5 — Install Starship for Ubuntu WSL
 
 ### Automated install with DevCobos-setup (recommended)
 
-The WSL installer in the root of this repository configures **Zsh + Starship** with the SynthWave theme, plugins (autosuggestions, syntax highlighting), and useful aliases — all in one step.
+The WSL installer configures **Zsh + Starship** with the SynthWave theme, autosuggestions, syntax highlighting, and `eza` aliases — all in one step.
 
-1. Run the installer from the root of this repository:
+1. Go back to the [main installer](../README.md) and run:
    ```bash
    sudo -v && ~/DevCobos-setup/install.sh
    ```
-2. In the main menu, choose **Select tools** to pick only what you need.
-3. Use the arrow keys to navigate the list and press `Space` to select **Zsh + Starship**.
-4. Press `Enter` to confirm and start the installation.
+2. Select **Zsh + Starship** from the tool list.
 
-The script will automatically:
-- Install **Zsh** and set it as your default shell.
-- Install **Starship** and deploy the SynthWave prompt configuration.
-- Set up **zsh-autosuggestions** and **zsh-syntax-highlighting** plugins.
-- Configure **eza** aliases for a modern `ls` experience.
-
-> After installation, close and reopen your terminal for the changes to take effect.
+The script will automatically install and configure everything. Restart your terminal when done.
 
 ### Manual install
 
-If you prefer to set everything up manually, follow the steps below.
+If you prefer to set it up manually:
 
-#### Using curl to install Starship
+**Install Starship:**
 
 ```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-#### Configure your shell
+**Configure your shell:**
 
-1. Open the Ubuntu/WSL terminal.
-2. Edit `~/.bashrc` with your preferred editor (example with `nano`):
+1. Open `~/.bashrc` in your editor:
    ```bash
    nano ~/.bashrc
    ```
-3. Go to the end of the file and add this line:
+2. Add this line at the end:
    ```bash
    eval "$(starship init bash)"
    ```
-4. Save and exit `nano`:
-   - Press `Ctrl + O` > Enter (to save)
-   - Press `Ctrl + X` (to exit)
-5. Reload the Bash configuration without closing the terminal:
+3. Save (`Ctrl+O`, Enter) and exit (`Ctrl+X`).
+4. Reload:
    ```bash
    source ~/.bashrc
    ```
 
-#### Configure the SynthWave theme
+**Apply the SynthWave theme:**
 
-1. Create the Starship configuration folder if it doesn't exist and open the config file:
+1. Create the config folder and open the config file:
    ```bash
    mkdir -p ~/.config && nano ~/.config/starship.toml
    ```
-2. Copy the entire content from [`starship/synthwave-custom.toml`](starship/synthwave-custom.toml) into this file.
+2. Copy the contents of [`starship/synthwave-custom.toml`](starship/synthwave-custom.toml) into the file.
+3. Save and exit.
 
-   > **Note:** This config uses `$fill` for a single-line layout. The automated WSL installer (`scripts/zsh.sh`) deploys [`config/starship.toml`](../config/starship.toml), which uses `right_format` for the same visual result. Both are SynthWave-themed.
-3. Save and exit `nano`:
-   - Press `Ctrl + O` > Enter (to save)
-   - Press `Ctrl + X` (to exit)
-4. Your prompt should now display the SynthWave theme!
+> **Note:** The automated WSL installer deploys [`config/starship.toml`](../config/starship.toml) which uses `right_format`. The manual config uses `$fill` for the same visual result. Both are SynthWave-themed.
+
+---
+
+## Optional customization
+
+### Acrylic tab row
+
+1. Go to `Settings > Appearance`.
+2. Enable **Use Acrylic Material in the tab row**.
+3. Save.
+
+   ![acrylic material](../.github/assets/acrylic_material_tab_row.png)
