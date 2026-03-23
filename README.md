@@ -41,29 +41,18 @@ A fully configured WSL2 developer environment with:
 
 > The setup has two phases. Complete them in order.
 
-```
-┌─────────────────────────────────────┐
-│  PHASE 1 — Windows side (PowerShell)│
-│                                     │
-│  1. Install Windows Terminal        │
-│  2. Install a Nerd Font             │
-│  3. Install color schemes           │
-│  4. Install Starship for PowerShell │
-│                                     │
-│  → windows-terminal/README.md       │
-└────────────────┬────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────┐
-│  PHASE 2 — WSL side (Ubuntu/Bash)   │
-│                                     │
-│  5. Clone this repo                 │
-│  6. Run install.sh                  │
-│  7. Select your tools               │
-│                                     │
-│  → Usage section below              │
-└─────────────────────────────────────┘
-```
+**Phase 1 — Windows side** (PowerShell) → [windows-terminal/README.md](windows-terminal/README.md)
+
+1. Install Windows Terminal
+2. Install a Nerd Font
+3. Install color schemes
+4. Install Starship for PowerShell
+
+**Phase 2 — WSL side** (Ubuntu/Bash) → [Usage section](#usage)
+
+5. Clone this repo
+6. Run `install.sh`
+7. Select your tools
 
 ---
 
