@@ -101,6 +101,10 @@ readonly MSG_GIT_CONFIG_NAME="  Nombre :"
 readonly MSG_GIT_CONFIG_EMAIL="  Email  :"
 readonly MSG_GIT_CONFIG_EDITOR="  Editor :"
 
+# summary table
+readonly MSG_SUMMARY_TOOL="Herramienta"
+readonly MSG_SUMMARY_VERSION="Versión"
+
 # tool descriptions
 readonly MSG_TOOL_GIT_DESC="Control de versiones"
 readonly MSG_TOOL_ZSH_DESC="Shell y prompt"

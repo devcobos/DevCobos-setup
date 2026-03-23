@@ -20,6 +20,8 @@ readonly C_RED="#ff5555"
 readonly C_DIM="#666666"
 
 INSTALL_RESULTS=()
+INSTALL_VERSIONS=()
+INSTALL_ORDER=()
 LANG_OVERRIDE=""
 
 parse_args() {
@@ -205,6 +207,20 @@ collect_inputs() {
   if declare -f "$fn" > /dev/null; then "$fn"; fi
 }
 
+extract_version() {
+  local id="$1" log_file="$2"
+  [[ -f "$log_file" ]] || { echo "--"; return; }
+  local ver
+  case "$id" in
+    git)    ver=$(grep -oP 'git version \K[\d.]+' "$log_file" | tail -1) ;;
+    zsh)    ver=$(grep -oP 'zsh \K[\d.]+' "$log_file" | tail -1) ;;
+    node)   ver=$(grep -oP 'node v\K[\d.]+' "$log_file" | tail -1) ;;
+    docker) ver=$(grep -oP 'Docker version \K[\d.]+' "$log_file" | tail -1) ;;
+    *)      ver="" ;;
+  esac
+  echo "${ver:---}"
+}
+
 run_install() {
   local id="$1"
   local name="$2"
@@ -220,19 +236,37 @@ run_install() {
 
   collect_inputs "$id"
 
+  local log_file="/tmp/devcobos_install_${id}.log"
+
   if gum spin \
        --spinner dot \
        --spinner.foreground "$C_CYAN" \
        --title "  $MSG_INSTALLING $name..." \
        --title.foreground "$C_LILAC" \
-       --show-error \
-       -- bash "$script"; then
+       -- bash -c 'bash "$1" > "$2" 2>&1' _ "$script" "$log_file"; then
+    local version
+    version=$(extract_version "$id" "$log_file")
+
     INSTALL_RESULTS+=("$name:success")
+    INSTALL_VERSIONS+=("$name:$version")
+    INSTALL_ORDER+=("$name")
+
     gum style --foreground "$C_MINT" "  ✓ $name $MSG_DONE"
   else
     INSTALL_RESULTS+=("$name:failed")
+    INSTALL_VERSIONS+=("$name:--")
+    INSTALL_ORDER+=("$name")
+
     gum style --foreground "$C_RED" "  ✗ $name $MSG_FAILED"
+
+    if [[ -f "$log_file" ]]; then
+      tail -3 "$log_file" | while IFS= read -r line; do
+        gum style --foreground "$C_DIM" "    $line"
+      done
+    fi
   fi
+
+  rm -f "$log_file"
 }
 
 select_tools() {
@@ -334,14 +368,53 @@ main_menu() {
 }
 
 show_summary() {
-  echo ""
+  [[ ${#INSTALL_ORDER[@]} -eq 0 ]] && return
+
+  show_logo
+
+  local header
+  header=$(printf "  %-2s %-20s %s" "" "$MSG_SUMMARY_TOOL" "$MSG_SUMMARY_VERSION")
+
+  local separator="  $(printf '%.0s─' {1..40})"
+
+  local lines=()
+  lines+=("$header")
+  lines+=("$separator")
+
+  for entry in "${INSTALL_ORDER[@]}"; do
+    local status="?" version="--"
+
+    for r in "${INSTALL_RESULTS[@]}"; do
+      if [[ "$r" == "$entry:success" ]]; then status="✓"; break
+      elif [[ "$r" == "$entry:failed" ]]; then status="✗"; break; fi
+    done
+
+    for v in "${INSTALL_VERSIONS[@]}"; do
+      [[ "$v" == "$entry:"* ]] && { version="${v#*:}"; break; }
+    done
+
+    lines+=("$(printf "  %s %-20s %s" "$status" "$entry" "$version")")
+  done
+
+  local body
+  body=$(printf '%s\n' "${lines[@]}")
+
   gum style \
     --foreground "$C_MINT" \
     --border-foreground "$C_PINK" \
     --border rounded \
-    --align center --width 50 \
-    --margin "0 2" --padding "0 2" \
+    --align center \
+    --width 50 \
+    --padding "1 2" \
     "$MSG_SUMMARY"
+
+  gum style \
+    --foreground "$C_MINT" \
+    --border-foreground "$C_PINK" \
+    --border rounded \
+    --width 50 \
+    --padding "1 2" \
+    "$body"
 
   echo ""
 }
