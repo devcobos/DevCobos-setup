@@ -30,52 +30,12 @@ log_warn()  { gum log --level warn  --prefix "setup" "$@"; }
 log_error() { gum log --level error --prefix "setup" "$@"; }
 export -f log_info log_warn log_error
 
-show_help() {
-  local help_text
-  help_text=$(cat << 'HELPEOF'
-# DevCobos-setup
-
-Interactive development environment installer for **WSL2 + Ubuntu**.
-
-## Usage
-
-```bash
-./install.sh              # Interactive mode
-./install.sh --lang es    # Force Spanish
-./install.sh --help       # This help
-```
-
-## Available Tools
-
-| Tool | Description |
-|------|-------------|
-| Git | Version control + global config |
-| Zsh + Starship | Shell, prompt, plugins, eza |
-| Node.js (fnm) | JavaScript runtime + version manager |
-| Docker | Container runtime + WSL systemd |
-
-## Requirements
-
-- WSL2 with Ubuntu
-- `sudo` privileges
-- Internet connection
-HELPEOF
-  )
-
-  if command -v gum &>/dev/null; then
-    echo "$help_text" | gum format
-  else
-    echo "$help_text"
-  fi
-}
-
 parse_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --help|-h) show_help; exit 0 ;;
-      --lang)    LANG_OVERRIDE="$2"; shift 2 ;;
-      --lang=*)  LANG_OVERRIDE="${1#--lang=}"; shift ;;
-      *)         shift ;;
+      --lang)   LANG_OVERRIDE="$2"; shift 2 ;;
+      --lang=*) LANG_OVERRIDE="${1#--lang=}"; shift ;;
+      *)        shift ;;
     esac
   done
 }
