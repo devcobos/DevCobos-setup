@@ -96,6 +96,9 @@ init_tools() {
     "zsh|Zsh + Starship|$MSG_TOOL_ZSH_DESC"
     "node|Node.js (fnm)|$MSG_TOOL_NODE_DESC"
     "docker|Docker|$MSG_TOOL_DOCKER_DESC"
+    "make|Make|$MSG_TOOL_MAKE_DESC"
+    "aws|AWS CLI|$MSG_TOOL_AWS_DESC"
+    "terraform|Terraform|$MSG_TOOL_TERRAFORM_DESC"
   )
 }
 
@@ -185,8 +188,11 @@ extract_version() {
     git)    ver=$(grep -oP 'git version \K[\d.]+' "$log_file" | tail -1) ;;
     zsh)    ver=$(grep -oP 'zsh \K[\d.]+' "$log_file" | tail -1) ;;
     node)   ver=$(grep -oP 'node v\K[\d.]+' "$log_file" | tail -1) ;;
-    docker) ver=$(grep -oP 'Docker version \K[\d.]+' "$log_file" | tail -1) ;;
-    *)      ver="" ;;
+    docker)    ver=$(grep -oP 'Docker version \K[\d.]+' "$log_file" | tail -1) ;;
+    make)      ver=$(grep -oP 'GNU Make \K[\d.]+' "$log_file" | tail -1) ;;
+    aws)       ver=$(grep -oP 'aws-cli/\K[\d.]+' "$log_file" | tail -1) ;;
+    terraform) ver=$(grep -oP 'Terraform v\K[\d.]+' "$log_file" | tail -1) ;;
+    *)         ver="" ;;
   esac
   echo "${ver:---}"
 }
@@ -258,7 +264,7 @@ select_tools() {
     --item.foreground "$C_DIM" \
     --selected-prefix "◉ " \
     --unselected-prefix "◯ " \
-    --height 8 \
+    --height 11 \
     "${options[@]}"
 }
 

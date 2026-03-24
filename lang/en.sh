@@ -111,3 +111,19 @@ readonly MSG_TOOL_GIT_DESC="Version control"
 readonly MSG_TOOL_ZSH_DESC="Shell and prompt"
 readonly MSG_TOOL_NODE_DESC="JavaScript runtime + version manager"
 readonly MSG_TOOL_DOCKER_DESC="Container runtime"
+readonly MSG_TOOL_MAKE_DESC="Build automation"
+readonly MSG_TOOL_AWS_DESC="Amazon Web Services CLI"
+readonly MSG_TOOL_TERRAFORM_DESC="Infrastructure as Code"
+
+# make
+readonly MSG_MAKE_INSTALLING="Installing make..."
+readonly MSG_MAKE_ALREADY_INSTALLED="Already installed:"
+
+# aws cli
+readonly MSG_AWS_INSTALLING="Installing AWS CLI v2..."
+readonly MSG_AWS_ALREADY_INSTALLED="Already installed:"
+
+# terraform
+readonly MSG_TERRAFORM_INSTALLING="Installing Terraform..."
+readonly MSG_TERRAFORM_ALREADY_INSTALLED="Already installed:"
+readonly MSG_TERRAFORM_AUTOCOMPLETE="Terraform autocomplete configured"
