@@ -148,7 +148,7 @@ collect_inputs_node() {
 
     gum style --foreground "$C_DIM" "  Node $NODE_VERSION · $NODE_PKG_MANAGER"
   else
-    gum style --foreground "$C_DIM" "  skip"
+    gum style --foreground "$C_DIM" "  skip node installation"
   fi
 
   export NODE_VERSION NODE_PKG_MANAGER
