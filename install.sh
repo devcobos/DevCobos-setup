@@ -78,8 +78,8 @@ show_logo() {
  ██████████  ░░██████   ░░█████    ░░█████████ ░░██████  ████████ ░░██████  ██████
 ░░░░░░░░░░    ░░░░░░     ░░░░░      ░░░░░░░░░   ░░░░░░  ░░░░░░░░   ░░░░░░  ░░░░░░
 EOF
-
   printf '\033[0m\n'
+
   gum style \
     --foreground "$C_LILAC" \
     --align center --width 80 \
@@ -105,16 +105,6 @@ tool_desc() { echo "${1}" | cut -d'|' -f3; }
 
 # Collect inputs in main shell to guarantee TTY access
 collect_inputs_git() {
-  echo ""
-  gum style \
-    --foreground "$C_PINK" \
-    --border-foreground "$C_LILAC" \
-    --border normal \
-    --padding "0 2" \
-    --bold \
-    "$MSG_GIT_CONFIG_HEADER"
-  echo ""
-
   GIT_NAME=$(gum input \
     --placeholder "$MSG_GIT_NAME_PLACEHOLDER" \
     --prompt "$MSG_GIT_NAME_PROMPT" \
@@ -131,20 +121,12 @@ collect_inputs_git() {
     --width 50 \
     --value "$(git config --global user.email 2>/dev/null || true)")
 
+  gum style --foreground "$C_DIM" "  $GIT_NAME · $GIT_EMAIL"
+
   export GIT_NAME GIT_EMAIL
 }
 
 collect_inputs_node() {
-  echo ""
-  gum style \
-    --foreground "$C_PINK" \
-    --border-foreground "$C_LILAC" \
-    --border normal \
-    --padding "0 2" \
-    --bold \
-    "$MSG_NODE_VERSION_HEADER"
-  echo ""
-
   NODE_VERSION=$(gum choose \
     --header "$MSG_NODE_VERSION_SELECT" \
     --header.foreground "$C_CYAN" \
@@ -155,16 +137,6 @@ collect_inputs_node() {
     "24" "22" "20" "none")
 
   if [[ "$NODE_VERSION" != "none" ]]; then
-    echo ""
-    gum style \
-      --foreground "$C_PINK" \
-      --border-foreground "$C_LILAC" \
-      --border normal \
-      --padding "0 2" \
-      --bold \
-      "$MSG_NODE_PKG_HEADER"
-    echo ""
-
     NODE_PKG_MANAGER=$(gum choose \
       --header "$MSG_NODE_PKG_SELECT" \
       --header.foreground "$C_CYAN" \
@@ -173,22 +145,16 @@ collect_inputs_node() {
       --selected.foreground "$C_PINK" \
       --item.foreground "$C_DIM" \
       "npm" "pnpm" "yarn")
+
+    gum style --foreground "$C_DIM" "  Node $NODE_VERSION · $NODE_PKG_MANAGER"
+  else
+    gum style --foreground "$C_DIM" "  skip node installation"
   fi
 
   export NODE_VERSION NODE_PKG_MANAGER
 }
 
 collect_inputs_docker() {
-  echo ""
-  gum style \
-    --foreground "$C_PINK" \
-    --border-foreground "$C_LILAC" \
-    --border normal \
-    --padding "0 2" \
-    --bold \
-    "$MSG_DOCKER_CONFIG_HEADER"
-  echo ""
-
   if gum confirm \
     --affirmative "$MSG_DOCKER_CONFIRM_YES" \
     --negative "$MSG_DOCKER_CONFIRM_NO" \
@@ -197,6 +163,10 @@ collect_inputs_docker() {
     DOCKER_EXPOSE_TCP="true"
   else
     DOCKER_EXPOSE_TCP="false"
+  fi
+
+  if [[ "$DOCKER_EXPOSE_TCP" == "true" ]]; then
+    gum style --foreground "$C_DIM" "  TCP ports will be exposed to the host"
   fi
 
   export DOCKER_EXPOSE_TCP
@@ -260,9 +230,13 @@ run_install() {
     gum style --foreground "$C_RED" "  ✗ $name $MSG_FAILED"
 
     if [[ -f "$log_file" ]]; then
-      tail -3 "$log_file" | while IFS= read -r line; do
-        gum style --foreground "$C_DIM" "    $line"
-      done
+      if gum confirm --default=no "$MSG_VIEW_FULL_LOG"; then
+        gum pager --border-foreground "$C_PINK" < "$log_file"
+      else
+        tail -3 "$log_file" | while IFS= read -r line; do
+          gum style --foreground "$C_DIM" "    $line"
+        done
+      fi
     fi
   fi
 
