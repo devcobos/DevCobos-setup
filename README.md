@@ -100,6 +100,9 @@ The installer will:
 | Zsh + Starship | Zsh shell with SynthWave prompt, autosuggestions, syntax highlighting, and `eza` aliases |
 | Node.js (fnm) | JavaScript runtime via `fnm` version manager + choice of npm, pnpm, or yarn |
 | Docker | Container runtime with WSL systemd + optional TCP exposure for Windows Docker Desktop |
+| Make | GNU Make build tool |
+| AWS CLI | AWS Command Line Interface v2 |
+| Terraform | HashiCorp Terraform IaC tool with autocomplete |
 | [Windows Terminal](windows-terminal/README.md) | Color schemes, Nerd Font, and Starship for PowerShell |
 
 ---
@@ -123,25 +126,28 @@ Add a new language by creating `lang/<code>.sh` with the same variables as `lang
 DevCobos-setup/
 ├── install.sh              # Entry point and interactive menu
 ├── config/
-│   └── starship.toml       # Starship prompt config (SynthWave, deployed by scripts/zsh.sh)
+│   └── starship.toml       # SynthWave Starship prompt theme
 ├── lang/
-│   ├── en.sh               # English UI strings
-│   └── es.sh               # Spanish UI strings
+│   ├── en.sh               # English strings
+│   └── es.sh               # Spanish strings
 ├── scripts/
-│   ├── git.sh              # Git install + global config
+│   ├── git.sh              # Git + global config
 │   ├── zsh.sh              # Zsh + Starship + plugins
 │   ├── node.sh             # fnm + Node.js + package manager
-│   └── docker.sh           # Docker + WSL systemd config
+│   ├── docker.sh           # Docker + WSL systemd
+│   ├── make.sh             # GNU Make
+│   ├── aws.sh              # AWS CLI v2
+│   └── terraform.sh        # Terraform + autocomplete
 └── windows-terminal/
     ├── README.md            # Windows Terminal setup guide (Phase 1)
-    ├── install-themes.ps1   # Installs color schemes into Windows Terminal
-    ├── install-starship.ps1 # Configures Starship for PowerShell
+    ├── install-themes.ps1   # Color schemes installer
+    ├── install-starship.ps1 # Starship for PowerShell
     ├── themes/
-    │   ├── tokyo-night-custom.json   # Tokyo Night color scheme (PowerShell)
-    │   └── synthwave-custom.json     # SynthWave color scheme (Ubuntu WSL)
+    │   ├── tokyo-night-custom.json
+    │   └── synthwave-custom.json
     └── starship/
-        ├── tokyo-night-custom.toml   # Starship config for PowerShell
-        └── synthwave-custom.toml     # Starship config for Ubuntu WSL
+        ├── tokyo-night-custom.toml
+        └── synthwave-custom.toml
 ```
 
 ---
