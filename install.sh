@@ -24,12 +24,58 @@ INSTALL_VERSIONS=()
 INSTALL_ORDER=()
 LANG_OVERRIDE=""
 
+# Structured logging helpers (available after gum is installed)
+log_info()  { gum log --level info  --prefix "setup" "$@"; }
+log_warn()  { gum log --level warn  --prefix "setup" "$@"; }
+log_error() { gum log --level error --prefix "setup" "$@"; }
+export -f log_info log_warn log_error
+
+show_help() {
+  local help_text
+  help_text=$(cat << 'HELPEOF'
+# DevCobos-setup
+
+Interactive development environment installer for **WSL2 + Ubuntu**.
+
+## Usage
+
+```bash
+./install.sh              # Interactive mode
+./install.sh --lang es    # Force Spanish
+./install.sh --help       # This help
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| Git | Version control + global config |
+| Zsh + Starship | Shell, prompt, plugins, eza |
+| Node.js (fnm) | JavaScript runtime + version manager |
+| Docker | Container runtime + WSL systemd |
+
+## Requirements
+
+- WSL2 with Ubuntu
+- `sudo` privileges
+- Internet connection
+HELPEOF
+  )
+
+  if command -v gum &>/dev/null; then
+    echo "$help_text" | gum format
+  else
+    echo "$help_text"
+  fi
+}
+
 parse_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --lang)   LANG_OVERRIDE="$2"; shift 2 ;;
-      --lang=*) LANG_OVERRIDE="${1#--lang=}"; shift ;;
-      *)        shift ;;
+      --help|-h) show_help; exit 0 ;;
+      --lang)    LANG_OVERRIDE="$2"; shift 2 ;;
+      --lang=*)  LANG_OVERRIDE="${1#--lang=}"; shift ;;
+      *)         shift ;;
     esac
   done
 }
@@ -67,7 +113,8 @@ bootstrap_gum() {
 
 show_logo() {
   clear
-  printf '\033[38;2;255;255;255m'
+  local ascii
+  ascii=$(printf '\033[38;2;255;255;255m'
   cat << 'EOF'
  ██████████                          █████████           █████
 ░░███░░░░███                        ███░░░░░███         ░░███
@@ -78,15 +125,18 @@ show_logo() {
  ██████████  ░░██████   ░░█████    ░░█████████ ░░██████  ████████ ░░██████  ██████
 ░░░░░░░░░░    ░░░░░░     ░░░░░      ░░░░░░░░░   ░░░░░░  ░░░░░░░░   ░░░░░░  ░░░░░░
 EOF
+  printf '\033[0m')
 
-  printf '\033[0m\n'
-  gum style \
+  local subtitle
+  subtitle=$(gum style \
     --foreground "$C_LILAC" \
     --align center --width 80 \
     --margin "1 0" \
     --border-foreground "$C_LILAC" \
     --border double \
-    "$MSG_INSTALLER_SUBTITLE"
+    "$MSG_INSTALLER_SUBTITLE")
+
+  gum join --vertical --align center "$ascii" "$subtitle"
 }
 
 # Format: "id|Name|Description"
@@ -260,9 +310,13 @@ run_install() {
     gum style --foreground "$C_RED" "  ✗ $name $MSG_FAILED"
 
     if [[ -f "$log_file" ]]; then
-      tail -3 "$log_file" | while IFS= read -r line; do
-        gum style --foreground "$C_DIM" "    $line"
-      done
+      if gum confirm --default=no "$MSG_VIEW_FULL_LOG"; then
+        gum pager --border-foreground "$C_PINK" < "$log_file"
+      else
+        tail -3 "$log_file" | while IFS= read -r line; do
+          gum style --foreground "$C_DIM" "    $line"
+        done
+      fi
     fi
   fi
 
@@ -372,33 +426,6 @@ show_summary() {
 
   show_logo
 
-  local header
-  header=$(printf "  %-2s %-20s %s" "" "$MSG_SUMMARY_TOOL" "$MSG_SUMMARY_VERSION")
-
-  local separator="  $(printf '%.0s─' {1..40})"
-
-  local lines=()
-  lines+=("$header")
-  lines+=("$separator")
-
-  for entry in "${INSTALL_ORDER[@]}"; do
-    local status="?" version="--"
-
-    for r in "${INSTALL_RESULTS[@]}"; do
-      if [[ "$r" == "$entry:success" ]]; then status="✓"; break
-      elif [[ "$r" == "$entry:failed" ]]; then status="✗"; break; fi
-    done
-
-    for v in "${INSTALL_VERSIONS[@]}"; do
-      [[ "$v" == "$entry:"* ]] && { version="${v#*:}"; break; }
-    done
-
-    lines+=("$(printf "  %s %-20s %s" "$status" "$entry" "$version")")
-  done
-
-  local body
-  body=$(printf '%s\n' "${lines[@]}")
-
   gum style \
     --foreground "$C_MINT" \
     --border-foreground "$C_PINK" \
@@ -408,13 +435,26 @@ show_summary() {
     --padding "1 2" \
     "$MSG_SUMMARY"
 
-  gum style \
-    --foreground "$C_MINT" \
-    --border-foreground "$C_PINK" \
-    --border rounded \
-    --width 50 \
-    --padding "1 2" \
-    "$body"
+  local csv="Status,$MSG_SUMMARY_TOOL,$MSG_SUMMARY_VERSION"
+  for entry in "${INSTALL_ORDER[@]}"; do
+    local status="?" version="--"
+
+    for r in "${INSTALL_RESULTS[@]}"; do
+      [[ "$r" == "$entry:success" ]] && { status="✓"; break; }
+      [[ "$r" == "$entry:failed" ]]  && { status="✗"; break; }
+    done
+
+    for v in "${INSTALL_VERSIONS[@]}"; do
+      [[ "$v" == "$entry:"* ]] && { version="${v#*:}"; break; }
+    done
+
+    csv+=$'\n'"$status,$entry,$version"
+  done
+
+  echo "$csv" | gum table \
+    --border.foreground "$C_PINK" \
+    --cell.foreground "$C_MINT" \
+    --header.foreground "$C_CYAN"
 
   echo ""
 }

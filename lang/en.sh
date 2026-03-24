@@ -22,6 +22,7 @@ readonly MSG_FAILED="failed"
 readonly MSG_SCRIPT_NOT_FOUND="Script not found:"
 
 readonly MSG_SUMMARY="Installation complete"
+readonly MSG_VIEW_FULL_LOG="View full error log?"
 readonly MSG_BYE="Bye!"
 
 # docker
