@@ -4,9 +4,9 @@ set -euo pipefail
 WSL_CONF="/etc/wsl.conf"
 
 if grep -q "systemd = true" "$WSL_CONF" 2>/dev/null; then
-  log_info "$MSG_DOCKER_SYSTEMD_ENABLED $WSL_CONF"
+  echo "› $MSG_DOCKER_SYSTEMD_ENABLED $WSL_CONF"
 else
-  log_info "$MSG_DOCKER_SYSTEMD_ENABLING $WSL_CONF..."
+  echo "› $MSG_DOCKER_SYSTEMD_ENABLING $WSL_CONF..."
   sudo tee "$WSL_CONF" > /dev/null << 'EOF'
 [boot]
 systemd = true
@@ -14,20 +14,20 @@ systemd = true
 [interop]
 appendWindowsPath = true
 EOF
-  log_info "$MSG_DOCKER_SYSTEMD_DONE"
+  echo "  $MSG_DOCKER_SYSTEMD_DONE"
 fi
 
 if ! pidof systemd &>/dev/null; then
   echo ""
-  log_warn "$MSG_DOCKER_SYSTEMD_NOT_RUNNING"
-  log_warn "$MSG_DOCKER_SYSTEMD_RESTART_HINT"
+  echo "  ⚠ $MSG_DOCKER_SYSTEMD_NOT_RUNNING"
+  echo "  $MSG_DOCKER_SYSTEMD_RESTART_HINT"
   exit 1
 fi
 
 if command -v docker &>/dev/null; then
-  log_info "$MSG_DOCKER_ALREADY_INSTALLED docker $(docker --version)"
+  echo "› $MSG_DOCKER_ALREADY_INSTALLED docker $(docker --version)"
 else
-  log_info "$MSG_DOCKER_INSTALLING"
+  echo "› $MSG_DOCKER_INSTALLING"
 
   [[ "${APT_UPDATED:-0}" == "1" ]] || sudo apt-get update -qq
   sudo apt-get install -y ca-certificates curl
@@ -47,23 +47,23 @@ $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" \
     docker-ce docker-ce-cli containerd.io \
     docker-buildx-plugin docker-compose-plugin
 
-  log_info "$(docker --version)"
+  echo "  $(docker --version)"
 fi
 
 if groups "$USER" | grep -q docker; then
-  log_info "$USER $MSG_DOCKER_GROUP_EXISTS"
+  echo "› $USER $MSG_DOCKER_GROUP_EXISTS"
 else
-  log_info "$MSG_DOCKER_GROUP_ADDING"
+  echo "› $MSG_DOCKER_GROUP_ADDING"
   sudo usermod -aG docker "$USER"
-  log_info "$MSG_DOCKER_GROUP_DONE"
+  echo "  $MSG_DOCKER_GROUP_DONE"
 fi
 
-log_info "$MSG_DOCKER_SERVICE_ENABLING"
+echo "› $MSG_DOCKER_SERVICE_ENABLING"
 sudo systemctl enable --now docker.service
-log_info "$(sudo systemctl is-active docker.service)"
+echo "  $(sudo systemctl is-active docker.service)"
 
 if [[ "${DOCKER_EXPOSE_TCP:-false}" == "true" ]]; then
-  log_info "$MSG_DOCKER_TCP_CONFIGURING"
+  echo "› $MSG_DOCKER_TCP_CONFIGURING"
 
   sudo tee /etc/docker/daemon.json > /dev/null << 'EOF'
 {
@@ -80,11 +80,11 @@ EOF
 
   sudo systemctl daemon-reexec
   sudo systemctl restart docker
-  log_info "$MSG_DOCKER_TCP_DONE"
+  echo "  $MSG_DOCKER_TCP_DONE"
 fi
 
 echo ""
-log_info "$MSG_DOCKER_VERIFYING"
+echo "› $MSG_DOCKER_VERIFYING"
 sudo docker run --rm hello-world 2>&1 | grep "Hello from Docker" \
-  && log_info "$MSG_DOCKER_VERIFY_OK" \
-  || log_error "$MSG_DOCKER_VERIFY_FAIL"
+  && echo "  $MSG_DOCKER_VERIFY_OK" \
+  || echo "  $MSG_DOCKER_VERIFY_FAIL"

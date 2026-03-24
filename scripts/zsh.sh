@@ -8,46 +8,46 @@ append_if_missing() {
   local file="$1" marker="$2" block="$3" msg_added="$4" msg_exists="$5"
   if ! grep -qF "$marker" "$file"; then
     printf '\n%s\n' "$block" >> "$file"
-    log_info "$msg_added"
+    echo "› $msg_added"
   else
-    log_info "$msg_exists"
+    echo "› $msg_exists"
   fi
 }
 
 if ! command -v zsh &>/dev/null; then
-  log_info "$MSG_ZSH_INSTALLING"
+  echo "› $MSG_ZSH_INSTALLING"
   [[ "${APT_UPDATED:-0}" == "1" ]] || sudo apt-get update -qq
   sudo apt-get install -y zsh
-  log_info "$(zsh --version)"
+  echo "  $(zsh --version)"
 else
-  log_info "$MSG_ZSH_ALREADY_INSTALLED $(zsh --version)"
+  echo "› $MSG_ZSH_ALREADY_INSTALLED $(zsh --version)"
 fi
 
 if [[ "$SHELL" != "$(command -v zsh)" ]]; then
-  log_info "$MSG_ZSH_DEFAULT_SHELL"
+  echo "› $MSG_ZSH_DEFAULT_SHELL"
   sudo chsh -s "$(command -v zsh)" "$USER"
-  log_info "$MSG_ZSH_DEFAULT_SHELL_DONE"
+  echo "  $MSG_ZSH_DEFAULT_SHELL_DONE"
 else
-  log_info "$MSG_ZSH_ALREADY_DEFAULT"
+  echo "› $MSG_ZSH_ALREADY_DEFAULT"
 fi
 
 if ! command -v starship &>/dev/null; then
-  log_info "$MSG_STARSHIP_INSTALLING"
+  echo "› $MSG_STARSHIP_INSTALLING"
   curl -fsSL https://starship.rs/install.sh | sh -s -- --yes
-  log_info "$(starship --version)"
+  echo "  $(starship --version)"
 else
-  log_info "$MSG_STARSHIP_ALREADY_INSTALLED $(starship --version)"
+  echo "› $MSG_STARSHIP_ALREADY_INSTALLED $(starship --version)"
 fi
 
 mkdir -p "$HOME/.config"
 
 if [[ -f "$HOME/.config/starship.toml" ]]; then
   cp "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.bak"
-  log_info "$MSG_STARSHIP_BACKUP"
+  echo "› $MSG_STARSHIP_BACKUP"
 fi
 
 cp "$CONFIG_DIR/starship.toml" "$HOME/.config/starship.toml"
-log_info "$MSG_STARSHIP_CONFIG_DEPLOYED"
+echo "› $MSG_STARSHIP_CONFIG_DEPLOYED"
 
 ZSHRC="$HOME/.zshrc"
 touch "$ZSHRC"
@@ -69,19 +69,19 @@ ZSH_PLUGINS_DIR="$HOME/.zsh"
 mkdir -p "$ZSH_PLUGINS_DIR"
 
 if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-autosuggestions" ]]; then
-  log_info "$MSG_ZSH_AUTOSUGGESTIONS_INSTALLING"
+  echo "› $MSG_ZSH_AUTOSUGGESTIONS_INSTALLING"
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
     "$ZSH_PLUGINS_DIR/zsh-autosuggestions"
 else
-  log_info "$MSG_ZSH_AUTOSUGGESTIONS_INSTALLED"
+  echo "› $MSG_ZSH_AUTOSUGGESTIONS_INSTALLED"
 fi
 
 if [[ ! -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" ]]; then
-  log_info "$MSG_ZSH_SYNTAX_INSTALLING"
+  echo "› $MSG_ZSH_SYNTAX_INSTALLING"
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
     "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting"
 else
-  log_info "$MSG_ZSH_SYNTAX_INSTALLED"
+  echo "› $MSG_ZSH_SYNTAX_INSTALLED"
 fi
 
 PLUGINS_BLOCK='# Plugins
@@ -92,7 +92,7 @@ append_if_missing "$ZSHRC" "zsh-autosuggestions.zsh" "$PLUGINS_BLOCK" \
   "$MSG_ZSH_PLUGINS_ADDED" "$MSG_ZSH_PLUGINS_EXISTS"
 
 if ! command -v eza &>/dev/null; then
-  log_info "$MSG_EZA_INSTALLING"
+  echo "› $MSG_EZA_INSTALLING"
 
   sudo mkdir -p /etc/apt/keyrings
   wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc \
@@ -103,9 +103,9 @@ if ! command -v eza &>/dev/null; then
   sudo apt-get update -qq
   sudo apt-get install -y eza
 
-  log_info "eza $(eza --version | head -1)"
+  echo "  eza $(eza --version | head -1)"
 else
-  log_info "$MSG_EZA_ALREADY_INSTALLED eza $(eza --version | head -1)"
+  echo "› $MSG_EZA_ALREADY_INSTALLED eza $(eza --version | head -1)"
 fi
 
 EZA_BLOCK='# eza (modern ls)

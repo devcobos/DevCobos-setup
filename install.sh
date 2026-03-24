@@ -24,12 +24,6 @@ INSTALL_VERSIONS=()
 INSTALL_ORDER=()
 LANG_OVERRIDE=""
 
-# Structured logging helpers (available after gum is installed)
-log_info()  { gum log --level info  --prefix "setup" "$@"; }
-log_warn()  { gum log --level warn  --prefix "setup" "$@"; }
-log_error() { gum log --level error --prefix "setup" "$@"; }
-export -f log_info log_warn log_error
-
 parse_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
