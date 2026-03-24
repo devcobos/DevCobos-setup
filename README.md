@@ -131,6 +131,7 @@ DevCobos-setup/
 │   ├── en.sh               # English strings
 │   └── es.sh               # Spanish strings
 ├── scripts/
+│   ├── git.sh              # Git + global config
 │   ├── zsh.sh              # Zsh + Starship + plugins
 │   ├── node.sh             # fnm + Node.js + package manager
 │   ├── docker.sh           # Docker + WSL systemd
