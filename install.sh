@@ -113,8 +113,7 @@ bootstrap_gum() {
 
 show_logo() {
   clear
-  local ascii
-  ascii=$(printf '\033[38;2;255;255;255m'
+  printf '\033[38;2;255;255;255m'
   cat << 'EOF'
  ██████████                          █████████           █████
 ░░███░░░░███                        ███░░░░░███         ░░███
@@ -125,18 +124,15 @@ show_logo() {
  ██████████  ░░██████   ░░█████    ░░█████████ ░░██████  ████████ ░░██████  ██████
 ░░░░░░░░░░    ░░░░░░     ░░░░░      ░░░░░░░░░   ░░░░░░  ░░░░░░░░   ░░░░░░  ░░░░░░
 EOF
-  printf '\033[0m')
+  printf '\033[0m\n'
 
-  local subtitle
-  subtitle=$(gum style \
+  gum style \
     --foreground "$C_LILAC" \
     --align center --width 80 \
     --margin "1 0" \
     --border-foreground "$C_LILAC" \
     --border double \
-    "$MSG_INSTALLER_SUBTITLE")
-
-  gum join --vertical --align center "$ascii" "$subtitle"
+    "$MSG_INSTALLER_SUBTITLE"
 }
 
 # Format: "id|Name|Description"
