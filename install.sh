@@ -166,7 +166,7 @@ collect_inputs_docker() {
   fi
 
   if [[ "$DOCKER_EXPOSE_TCP" == "true" ]]; then
-    gum style --foreground "$C_DIM" "  TCP :2375"
+    gum style --foreground "$C_DIM" "  TCP ports will be exposed to the host"
   fi
 
   export DOCKER_EXPOSE_TCP
