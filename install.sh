@@ -422,6 +422,33 @@ show_summary() {
 
   show_logo
 
+  local header
+  header=$(printf "  %-2s %-20s %s" "" "$MSG_SUMMARY_TOOL" "$MSG_SUMMARY_VERSION")
+
+  local separator="  $(printf '%.0s─' {1..40})"
+
+  local lines=()
+  lines+=("$header")
+  lines+=("$separator")
+
+  for entry in "${INSTALL_ORDER[@]}"; do
+    local status="?" version="--"
+
+    for r in "${INSTALL_RESULTS[@]}"; do
+      if [[ "$r" == "$entry:success" ]]; then status="✓"; break
+      elif [[ "$r" == "$entry:failed" ]]; then status="✗"; break; fi
+    done
+
+    for v in "${INSTALL_VERSIONS[@]}"; do
+      [[ "$v" == "$entry:"* ]] && { version="${v#*:}"; break; }
+    done
+
+    lines+=("$(printf "  %s %-20s %s" "$status" "$entry" "$version")")
+  done
+
+  local body
+  body=$(printf '%s\n' "${lines[@]}")
+
   gum style \
     --foreground "$C_MINT" \
     --border-foreground "$C_PINK" \
@@ -431,26 +458,13 @@ show_summary() {
     --padding "1 2" \
     "$MSG_SUMMARY"
 
-  local csv="Status,$MSG_SUMMARY_TOOL,$MSG_SUMMARY_VERSION"
-  for entry in "${INSTALL_ORDER[@]}"; do
-    local status="?" version="--"
-
-    for r in "${INSTALL_RESULTS[@]}"; do
-      [[ "$r" == "$entry:success" ]] && { status="✓"; break; }
-      [[ "$r" == "$entry:failed" ]]  && { status="✗"; break; }
-    done
-
-    for v in "${INSTALL_VERSIONS[@]}"; do
-      [[ "$v" == "$entry:"* ]] && { version="${v#*:}"; break; }
-    done
-
-    csv+=$'\n'"$status,$entry,$version"
-  done
-
-  echo "$csv" | gum table \
-    --border.foreground "$C_PINK" \
-    --cell.foreground "$C_MINT" \
-    --header.foreground "$C_CYAN"
+  gum style \
+    --foreground "$C_MINT" \
+    --border-foreground "$C_PINK" \
+    --border rounded \
+    --width 50 \
+    --padding "1 2" \
+    "$body"
 
   echo ""
 }
