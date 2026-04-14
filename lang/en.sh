@@ -127,3 +127,8 @@ readonly MSG_AWS_ALREADY_INSTALLED="Already installed:"
 readonly MSG_TERRAFORM_INSTALLING="Installing Terraform..."
 readonly MSG_TERRAFORM_ALREADY_INSTALLED="Already installed:"
 readonly MSG_TERRAFORM_AUTOCOMPLETE="Terraform autocomplete configured"
+
+# claude code
+readonly MSG_CLAUDE_INSTALLING="Installing Claude Code..."
+readonly MSG_CLAUDE_ALREADY_INSTALLED="Already installed:"
+readonly MSG_TOOL_CLAUDE_DESC="Anthropic's AI coding assistant CLI"

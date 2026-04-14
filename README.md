@@ -103,6 +103,7 @@ The installer will:
 | Make | GNU Make build tool |
 | AWS CLI | AWS Command Line Interface v2 |
 | Terraform | HashiCorp Terraform IaC tool with autocomplete |
+| Claude Code | Anthropic's AI coding assistant CLI |
 | [Windows Terminal](windows-terminal/README.md) | Color schemes, Nerd Font, and Starship for PowerShell |
 
 ---

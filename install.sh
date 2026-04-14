@@ -99,6 +99,7 @@ init_tools() {
     "make|Make|$MSG_TOOL_MAKE_DESC"
     "aws|AWS CLI|$MSG_TOOL_AWS_DESC"
     "terraform|Terraform|$MSG_TOOL_TERRAFORM_DESC"
+    "claude|Claude Code|$MSG_TOOL_CLAUDE_DESC"
   )
 }
 
@@ -192,6 +193,7 @@ extract_version() {
     make)      ver=$(grep -oP 'GNU Make \K[\d.]+' "$log_file" | tail -1) ;;
     aws)       ver=$(grep -oP 'aws-cli/\K[\d.]+' "$log_file" | tail -1) ;;
     terraform) ver=$(grep -oP 'Terraform v\K[\d.]+' "$log_file" | tail -1) ;;
+    claude)    ver=$(grep -oP 'Claude Code \K[\d.]+' "$log_file" | tail -1) ;;
     *)         ver="" ;;
   esac
   echo "${ver:---}"
