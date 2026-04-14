@@ -114,6 +114,10 @@ readonly MSG_TOOL_DOCKER_DESC="Container runtime"
 readonly MSG_TOOL_MAKE_DESC="Build automation"
 readonly MSG_TOOL_AWS_DESC="Amazon Web Services CLI"
 readonly MSG_TOOL_TERRAFORM_DESC="Infrastructure as Code"
+readonly MSG_TOOL_GH_DESC="GitHub CLI — PRs, issues and actions from the terminal"
+readonly MSG_TOOL_RIPGREP_DESC="Fast search tool — replaces grep"
+readonly MSG_TOOL_FD_DESC="Fast file finder — replaces find"
+readonly MSG_TOOL_BAT_DESC="Syntax-highlighted pager — replaces cat"
 
 # make
 readonly MSG_MAKE_INSTALLING="Installing make..."
@@ -132,3 +136,32 @@ readonly MSG_TERRAFORM_AUTOCOMPLETE="Terraform autocomplete configured"
 readonly MSG_CLAUDE_INSTALLING="Installing Claude Code..."
 readonly MSG_CLAUDE_ALREADY_INSTALLED="Already installed:"
 readonly MSG_TOOL_CLAUDE_DESC="Anthropic's AI coding assistant CLI"
+
+# gh
+readonly MSG_GH_INSTALLING="Installing GitHub CLI..."
+readonly MSG_GH_ALREADY_INSTALLED="Already installed:"
+
+# ripgrep
+readonly MSG_RIPGREP_INSTALLING="Installing ripgrep..."
+readonly MSG_RIPGREP_ALREADY_INSTALLED="Already installed:"
+readonly MSG_RIPGREP_ALIAS_ADDED="alias grep=\"rg\" added to ~/.zshrc"
+readonly MSG_RIPGREP_ALIAS_EXISTS="ripgrep alias already present in ~/.zshrc"
+
+# fd
+readonly MSG_FD_INSTALLING="Installing fd..."
+readonly MSG_FD_ALREADY_INSTALLED="Already installed:"
+readonly MSG_FD_ALIAS_ADDED="aliases find/fd added to ~/.zshrc"
+readonly MSG_FD_ALIAS_EXISTS="fd aliases already present in ~/.zshrc"
+
+# bat
+readonly MSG_BAT_INSTALLING="Installing bat..."
+readonly MSG_BAT_ALREADY_INSTALLED="Already installed:"
+readonly MSG_BAT_ALIAS_ADDED="alias cat=\"bat\" added to ~/.zshrc"
+readonly MSG_BAT_ALIAS_EXISTS="bat alias already present in ~/.zshrc"
+
+# homebrew
+readonly MSG_BREW_INSTALLING="Installing Homebrew..."
+readonly MSG_BREW_ALREADY_INSTALLED="Already installed:"
+readonly MSG_BREW_ZSHRC="Added Homebrew shellenv to ~/.zshrc"
+readonly MSG_BREW_ZSHRC_EXISTS="Homebrew shellenv already present in ~/.zshrc"
+readonly MSG_TOOL_BREW_DESC="The missing package manager for Linux"

@@ -4,15 +4,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$(dirname "$SCRIPT_DIR")/config"
 
-append_if_missing() {
-  local file="$1" marker="$2" block="$3" msg_added="$4" msg_exists="$5"
-  if ! grep -qF "$marker" "$file"; then
-    printf '\n%s\n' "$block" >> "$file"
-    echo "› $msg_added"
-  else
-    echo "› $msg_exists"
-  fi
-}
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
 
 if ! command -v zsh &>/dev/null; then
   echo "› $MSG_ZSH_INSTALLING"

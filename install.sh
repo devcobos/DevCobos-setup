@@ -100,6 +100,11 @@ init_tools() {
     "aws|AWS CLI|$MSG_TOOL_AWS_DESC"
     "terraform|Terraform|$MSG_TOOL_TERRAFORM_DESC"
     "claude|Claude Code|$MSG_TOOL_CLAUDE_DESC"
+    "brew|Homebrew|$MSG_TOOL_BREW_DESC"
+    "gh|GitHub CLI|$MSG_TOOL_GH_DESC"
+    "ripgrep|ripgrep|$MSG_TOOL_RIPGREP_DESC"
+    "fd|fd|$MSG_TOOL_FD_DESC"
+    "bat|bat|$MSG_TOOL_BAT_DESC"
   )
 }
 
@@ -194,6 +199,11 @@ extract_version() {
     aws)       ver=$(grep -oP 'aws-cli/\K[\d.]+' "$log_file" | tail -1) ;;
     terraform) ver=$(grep -oP 'Terraform v\K[\d.]+' "$log_file" | tail -1) ;;
     claude)    ver=$(grep -oP 'Claude Code \K[\d.]+' "$log_file" | tail -1) ;;
+    brew)      ver=$(grep -oP 'Homebrew \K[\d.]+' "$log_file" | tail -1) ;;
+    gh)      ver=$(grep -oP 'gh version \K[\d.]+' "$log_file" | tail -1) ;;
+    ripgrep) ver=$(grep -oP 'ripgrep \K[\d.]+' "$log_file" | tail -1) ;;
+    fd)      ver=$(grep -oP 'fd \K[\d.]+' "$log_file" | tail -1) ;;
+    bat)     ver=$(grep -oP 'bat \K[\d.]+' "$log_file" | tail -1) ;;
     *)         ver="" ;;
   esac
   echo "${ver:---}"

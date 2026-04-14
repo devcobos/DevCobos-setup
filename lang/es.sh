@@ -114,6 +114,10 @@ readonly MSG_TOOL_DOCKER_DESC="Runtime de contenedores"
 readonly MSG_TOOL_MAKE_DESC="Automatización de compilación"
 readonly MSG_TOOL_AWS_DESC="CLI de Amazon Web Services"
 readonly MSG_TOOL_TERRAFORM_DESC="Infraestructura como Código"
+readonly MSG_TOOL_GH_DESC="GitHub CLI — PRs, issues y actions desde la terminal"
+readonly MSG_TOOL_RIPGREP_DESC="Búsqueda ultrarrápida — sustituye a grep"
+readonly MSG_TOOL_FD_DESC="Buscador de archivos rápido — sustituye a find"
+readonly MSG_TOOL_BAT_DESC="Paginador con resaltado de sintaxis — sustituye a cat"
 
 # make
 readonly MSG_MAKE_INSTALLING="Instalando make..."
@@ -132,3 +136,32 @@ readonly MSG_TERRAFORM_AUTOCOMPLETE="Autocompletado de Terraform configurado"
 readonly MSG_CLAUDE_INSTALLING="Instalando Claude Code..."
 readonly MSG_CLAUDE_ALREADY_INSTALLED="Ya está instalado:"
 readonly MSG_TOOL_CLAUDE_DESC="CLI del asistente de programación con IA de Anthropic"
+
+# gh
+readonly MSG_GH_INSTALLING="Instalando GitHub CLI..."
+readonly MSG_GH_ALREADY_INSTALLED="Ya está instalado:"
+
+# ripgrep
+readonly MSG_RIPGREP_INSTALLING="Instalando ripgrep..."
+readonly MSG_RIPGREP_ALREADY_INSTALLED="Ya está instalado:"
+readonly MSG_RIPGREP_ALIAS_ADDED="alias grep=\"rg\" añadido a ~/.zshrc"
+readonly MSG_RIPGREP_ALIAS_EXISTS="Alias de ripgrep ya presente en ~/.zshrc"
+
+# fd
+readonly MSG_FD_INSTALLING="Instalando fd..."
+readonly MSG_FD_ALREADY_INSTALLED="Ya está instalado:"
+readonly MSG_FD_ALIAS_ADDED="Aliases find/fd añadidos a ~/.zshrc"
+readonly MSG_FD_ALIAS_EXISTS="Aliases de fd ya presentes en ~/.zshrc"
+
+# bat
+readonly MSG_BAT_INSTALLING="Instalando bat..."
+readonly MSG_BAT_ALREADY_INSTALLED="Ya está instalado:"
+readonly MSG_BAT_ALIAS_ADDED="alias cat=\"bat\" añadido a ~/.zshrc"
+readonly MSG_BAT_ALIAS_EXISTS="Alias de bat ya presente en ~/.zshrc"
+
+# homebrew
+readonly MSG_BREW_INSTALLING="Instalando Homebrew..."
+readonly MSG_BREW_ALREADY_INSTALLED="Ya está instalado:"
+readonly MSG_BREW_ZSHRC="Añadido Homebrew shellenv a ~/.zshrc"
+readonly MSG_BREW_ZSHRC_EXISTS="Homebrew shellenv ya está presente en ~/.zshrc"
+readonly MSG_TOOL_BREW_DESC="El gestor de paquetes que falta en Linux"
